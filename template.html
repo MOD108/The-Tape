@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tape — Crypto Intelligence Briefing</title>
+<meta name="description" content="A daily briefing on crypto: markets, protocols, regulation and new projects. Compiled for signal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; line-height: 1.55; font-size: 17px; }
+
+  .ticker-rail {
+    background: var(--rail);
+    border-bottom: var(--rule);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.6rem 0;
+  }
+  .ticker {
+    display: inline-block;
+    font-family: var(--face-data);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--up);
+    animation: scroll 60s linear infinite;
+    padding-left: 100%;
+  }
+  @keyframes scroll { to { transform: translateX(-100%); } }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+  .masthead { padding: 2.5rem 0 1.5rem; border-bottom: var(--rule); }
+  .masthead h1 {
+    font-size: clamp(2.75rem, 13vw, 4.5rem);
+    margin: 0.4rem 0;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+  .masthead h1 em { color: var(--up); font-style: italic; }
+  .issue-line { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .strapline { color: var(--ink-dim); font-size: 0.95rem; max-width: 42ch; }
+
+  .section { padding: 2.25rem 0 0.5rem; }
+  .section-head {
+    font-family: var(--face-data);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    border-bottom: var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .story { padding-bottom: 1.75rem; margin-bottom: 1.75rem; border-bottom: var(--rule); }
+  .story:last-child { border-bottom: none; }
+  .meta { display: flex; gap: 0.85rem; flex-wrap: wrap; margin: 0 0 0.5rem; }
+  .story h3 { font-size: 1.4rem; line-height: 1.25; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+  .story h3 a { color: inherit; text-decoration: none; }
+  .story h3 a:hover, .story h3 a:focus { color: var(--up); }
+  .standfirst { margin: 0; color: var(--ink-dim); font-size: 0.98rem; }
+
+  .quick-hits { list-style: none; padding: 0; margin: 0; }
+  .quick-hits li {
+    display: flex; gap: 0.85rem; align-items: baseline;
+    padding: 0.6rem 0; border-bottom: var(--rule);
+  }
+  .quick-hits a { color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+  .quick-hits a:hover, .quick-hits a:focus { color: var(--up); }
+
+  .colophon {
+    font-family: var(--face-data);
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    border-top: var(--rule);
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+  }
+
+  a:focus-visible { outline: 2px solid var(--up); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="ticker-rail"><span class="ticker">{{TICKER}}</span></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="issue-line">
+      <span class="eyebrow">Issue {{ISSUE}}</span>
+      <span class="eyebrow">{{DATE}}</span>
+      <span class="eyebrow">London, UK</span>
+    </p>
+    <h1>The <em>Tape</em></h1>
+    <p class="strapline">
+      A daily briefing on crypto — markets, protocols, regulation and new projects.
+      Auto-compiled, human-owned.
+    </p>
+  </header>
+
+  {{HEADLINES}}
+  {{PROJECTS}}
+  {{DEGEN}}
+  {{QUICK_HITS}}
+
+  <footer class="colophon">
+    <p>&copy; 2026 The Tape — auto-compiled, human-owned. Last build: {{BUILT}}</p>
+    <p>Nothing here is financial advice. Stories are aggregated from third-party
+       feeds and summarised automatically; verify anything before acting on it.</p>
+  </footer>
+
+</div>
+</body>
+</html>
