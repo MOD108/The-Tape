@@ -1,0 +1,81 @@
+/* The Tape — theme tokens
+   Drop into template.html's <style> block, above your existing rules.
+   Deliberately distinct from The Wire's paper palette: this is a reading
+   surface for market data, so the green is a price signal first and a
+   decoration second. Green means up, red means down, amber means "handle
+   with care" — the DEGEN section is amber-cased throughout for that reason.
+*/
+
+:root {
+  /* Surface — near-black with a slight green cast, not pure #000.
+     Pure black on OLED makes hairline rules disappear. */
+  --void:    #0A0C0A;   /* page */
+  --rail:    #131A15;   /* cards, ticker strip */
+  --line:    #1F2C23;   /* hairlines, dividers */
+
+  /* Text — desaturated so the signal colours stay loud */
+  --ink:     #C9D4CB;   /* body */
+  --ink-dim: #7E8C81;   /* timestamps, source names, metadata */
+
+  /* Signal */
+  --up:      #4FE38A;   /* gains, live indicator, active filter */
+  --down:    #FF5F56;   /* losses, security alerts */
+  --caution: #E8B44A;   /* degen section, promo-flagged stories */
+
+  /* Type */
+  --face-display: "Space Grotesk", "Archivo", system-ui, sans-serif;
+  --face-body:    "Source Serif 4", Georgia, serif;
+  --face-data:    "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  --rule: 1px solid var(--line);
+}
+
+body {
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--face-body);
+}
+
+/* Section eyebrows and all numeric data run monospace — on a page called
+   The Tape, the fixed-width column IS the identity. Don't set prices in
+   the body face; the digits won't align down the column. */
+.eyebrow, .timestamp, .source, .price, .tag {
+  font-family: var(--face-data);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+h1, h2, h3 { font-family: var(--face-display); color: var(--ink); }
+
+/* Tag colours by section — the classifier's output drives these */
+.tag--market     { color: var(--up); }
+.tag--protocol   { color: var(--ink); }
+.tag--regulation { color: var(--ink-dim); }
+.tag--security   { color: var(--down); }
+.tag--project    { color: var(--up); }
+.tag--degen      { color: var(--caution); }
+.tag--general    { color: var(--ink-dim); }
+
+/* Price direction */
+.delta--up   { color: var(--up); }
+.delta--down { color: var(--down); }
+
+/* Promo-flagged stories stay visible but visually demoted — you want to see
+   what the low-trust feeds are pushing without it competing for attention. */
+.story--promo { opacity: 0.55; border-left: 2px solid var(--caution); padding-left: 0.75rem; }
+
+/* The degen section carries its base rate in the header, permanently.
+   This is the honest framing, not a disclaimer bolted on. */
+.degen-note {
+  font-family: var(--face-data);
+  font-size: 0.7rem;
+  color: var(--caution);
+  border: var(--rule);
+  padding: 0.6rem 0.8rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker { animation: none; overflow-x: auto; }
+}

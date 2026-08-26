@@ -1,0 +1,40 @@
+# The Tape — feed sources
+#
+# Format:  <url> | <display name> | <trust 1-10> | <default section>
+#
+# VERIFY BEFORE RELYING ON THIS FILE.
+# These URLs are from general knowledge, not checked against the live sites.
+# Crypto outlets change feed paths and put feeds behind Cloudflare more often
+# than mainstream publishers. Run the check below and delete anything that
+# doesn't return 200 with parseable XML:
+#
+#   python -c "import feedparser,sys; [print(l.split('|')[0].strip(), len(feedparser.parse(l.split('|')[0].strip()).entries)) for l in open('feeds.txt') if l.strip() and not l.startswith('#')]"
+#
+# TRUST WEIGHTS: crypto media carries far more paid placement than AI media.
+# Weight is used for dedup tie-breaks and to gate the promo filter in
+# classify.py. Anything below 6 gets the sponsored-content screen applied hard.
+# These are my judgements, not an industry standard — adjust to taste.
+
+# --- Tier 1: editorial separation, named reporters, corrections policy
+https://www.theblock.co/rss.xml            | The Block        | 9  | headlines
+https://www.dlnews.com/arc/outboundfeeds/rss/ | DL News       | 9  | headlines
+https://www.coindesk.com/arc/outboundfeeds/rss/ | CoinDesk     | 8  | headlines
+https://blockworks.co/feed                 | Blockworks      | 8  | headlines
+https://protos.com/feed/                   | Protos          | 8  | headlines
+
+# --- Tier 2: solid but mixed, some sponsored posts in-feed
+https://decrypt.co/feed                    | Decrypt         | 7  | headlines
+https://cointelegraph.com/rss              | Cointelegraph   | 6  | headlines
+https://bitcoinmagazine.com/feed           | Bitcoin Magazine| 6  | headlines
+
+# --- Tier 3: high promo density, use for volume not authority
+https://cryptoslate.com/feed/              | CryptoSlate     | 4  | headlines
+
+# --- Mainstream tech desks that cover crypto seriously
+https://arstechnica.com/tag/cryptocurrency/feed/ | Ars Technica | 9 | headlines
+
+# --- New projects / funding
+# DefiLlama publishes a raises dataset over JSON rather than RSS. It is not a
+# feed and must be handled separately in build.py — see NEW_PROJECTS_SOURCES
+# there. I have NOT verified the current endpoint path or whether it now
+# requires a key; check https://defillama.com/docs/api before wiring it in.
