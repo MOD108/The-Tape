@@ -1,0 +1,41 @@
+name: Build The Tape
+
+on:
+  schedule:
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install feedparser requests
+
+      - name: Build the briefing
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python build.py
+
+      - name: Commit and push
+        run: |
+          git config user.name  "tape-bot"
+          git config user.email "actions@github.com"
+          git add index.html state.json
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Build: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
